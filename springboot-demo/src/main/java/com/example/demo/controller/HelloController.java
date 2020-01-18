@@ -54,9 +54,4 @@ public class HelloController {
 
         return myConfig.getName() + " good";
     }
-
-    @GetMapping("/xjf")
-    public String xjf(){
-        return "徐佳飞zz";
-    }
 }
