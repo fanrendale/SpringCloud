@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.MyConfig;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -35,6 +36,12 @@ public class HelloController {
     private MyConfig myConfig;
 
     /**
+     * 测试异步执行
+     */
+    @Autowired
+    private UserService userService;
+
+    /**
      * 测试
      * @return
      */
@@ -54,4 +61,20 @@ public class HelloController {
 
         return myConfig.getName() + " good";
     }
+
+    /**
+     * 测试方法异步执行
+     * @return
+     */
+    @GetMapping("/async")
+    public String asyncTest(){
+        System.out.println("主方法开始执行");
+
+        userService.asyncMethod();
+
+        System.out.println("主方法结束执行");
+
+        return "success";
+    }
+
 }
