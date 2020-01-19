@@ -1,0 +1,14 @@
+//该文件是提示自定义属性，在设置时会有提示消息
+{
+  "properties":[
+    {
+      "name":"spring.user.name",
+      "defaultValue":"xjf"
+    },
+    {
+      "name": "spring.user.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false
+    }
+  ]
+}
