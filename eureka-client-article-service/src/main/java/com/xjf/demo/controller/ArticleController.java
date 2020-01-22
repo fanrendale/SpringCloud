@@ -1,5 +1,6 @@
 package com.xjf.demo.controller;
 
+import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,9 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 public class ArticleController {
+
+    @Autowired
+    private EurekaClient eurekaClient;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -33,5 +37,14 @@ public class ArticleController {
     @GetMapping("/article/callHello2")
     public String callHello2(){
         return restTemplate.getForObject("http://eureka-client-user-service/user/hello", String.class);
+    }
+
+    /**
+     * 获取用户服务实例信息，当前是article服务，可以获取user服务的信息
+     * @return
+     */
+    @GetMapping("/article/infos")
+    public Object getInfos(){
+        return eurekaClient.getInstancesByVipAddress("eureka-client-user-service", false);
     }
 }

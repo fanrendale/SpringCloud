@@ -1,5 +1,7 @@
 package com.xjf.demo.controller;
 
+import com.netflix.discovery.EurekaClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,8 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+    @Autowired
+    private EurekaClient eurekaClient;
+
     @GetMapping("/user/hello")
     public String hello(){
         return "hello";
+    }
+
+    /**
+     * 获取信息
+     * @return
+     */
+    @GetMapping("/user/infos")
+    public Object getInfo(){
+        return eurekaClient.getInstancesByVipAddress("eureka-client-user-service",false);
     }
 }
