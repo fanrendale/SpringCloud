@@ -2,6 +2,7 @@ package com.xjf.demo.controller;
 
 import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -18,6 +19,12 @@ public class ArticleController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    /**
+     * 注意此处的是:org.springframework.cloud.client.discovery.DiscoveryClient;
+     */
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     /**
      * 测试直接调用用户服务（未经过Eureka注册中心）,使用的是IP地址
@@ -46,5 +53,14 @@ public class ArticleController {
     @GetMapping("/article/infos")
     public Object getInfos(){
         return eurekaClient.getInstancesByVipAddress("eureka-client-user-service", false);
+    }
+
+    /**
+     * 使用discoveryClient获取实例信息
+     * @return
+     */
+    @GetMapping("/article/infos2")
+    public Object getInfo2(){
+        return discoveryClient.getInstances("eureka-client-user-service");
     }
 }
