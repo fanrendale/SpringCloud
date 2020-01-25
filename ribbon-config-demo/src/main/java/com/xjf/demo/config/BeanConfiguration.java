@@ -1,5 +1,6 @@
 package com.xjf.demo.config;
 
+import com.xjf.demo.rule.MyRule;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +25,10 @@ public class BeanConfiguration {
     @LoadBalanced
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
+    }
+
+    @Bean
+    public MyRule myRule(){
+        return new MyRule();
     }
 }
