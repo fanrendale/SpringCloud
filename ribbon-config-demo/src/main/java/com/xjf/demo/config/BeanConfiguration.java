@@ -27,7 +27,7 @@ public class BeanConfiguration {
         return new RestTemplate();
     }
 
-    @Bean
+//    @Bean
     public MyRule myRule(){
         return new MyRule();
     }
