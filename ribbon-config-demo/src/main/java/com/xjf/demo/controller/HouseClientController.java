@@ -24,6 +24,7 @@ public class HouseClientController {
     /**
      * 使用@RequestParam传递参数
      *
+     * 用了@LoadBalanced注解后，restTemplate就不能使用IP地址调用服务
      * @param id
      * @return
      */

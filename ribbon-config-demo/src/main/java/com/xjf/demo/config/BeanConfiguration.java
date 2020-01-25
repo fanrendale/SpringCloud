@@ -16,10 +16,12 @@ public class BeanConfiguration {
 
     /**
      * 开启RestTemplate的负载均衡
+     *
+     * 用了@LoadBalanced注解后，restTemplate就不能使用IP地址调用服务
      * @return
      */
     @Bean
-    @LoadBalanced
+//    @LoadBalanced
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
