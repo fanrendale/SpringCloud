@@ -3,6 +3,7 @@ package com.xjf.demo.config;
 import com.xjf.demo.interceptor.FeignBasicAuthRequestInterceptor;
 import feign.Contract;
 import feign.Logger;
+import feign.Request;
 import feign.auth.BasicAuthRequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,5 +56,15 @@ public class FeignConfiguration {
     @Bean
     public FeignBasicAuthRequestInterceptor feignBasicAuthRequestInterceptor(){
         return new FeignBasicAuthRequestInterceptor();
+    }
+
+    /**
+     * 超时时间配置
+     * @return
+     */
+    @Bean
+    public Request.Options options(){
+        //参数：第一个为连接超时时间（ms），默认10*1000；第二个为取超时时间（ms），默认是60*1000
+        return new Request.Options(5000, 10000);
     }
 }
