@@ -1,7 +1,9 @@
 package com.xjf.demo.config;
 
+import com.xjf.demo.interceptor.FeignBasicAuthRequestInterceptor;
 import feign.Contract;
 import feign.Logger;
+import feign.auth.BasicAuthRequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,4 +38,22 @@ public class FeignConfiguration {
     public Contract feignContract(){
         return new feign.Contract.Default();
     }*/
+
+    /**
+     * 配置Basic认证
+     * @return
+     */
+    @Bean
+    public BasicAuthRequestInterceptor basicAuthRequestInterceptor(){
+        return new BasicAuthRequestInterceptor("user", "password");
+    }
+
+    /**
+     * 使用自定义认证
+     * @return
+     */
+    @Bean
+    public FeignBasicAuthRequestInterceptor feignBasicAuthRequestInterceptor(){
+        return new FeignBasicAuthRequestInterceptor();
+    }
 }
