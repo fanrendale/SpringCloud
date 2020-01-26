@@ -1,5 +1,6 @@
 package com.xjf.demo.api.client;
 
+import com.xjf.demo.config.FeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author xjf
  * @date 2020/1/26 11:48
  */
-@FeignClient(value = "eureka-client-user-service")
+@FeignClient(value = "eureka-client-user-service",configuration = FeignConfiguration.class)
 public interface UserRemoteClient {
 
     @GetMapping("/user/hello")
