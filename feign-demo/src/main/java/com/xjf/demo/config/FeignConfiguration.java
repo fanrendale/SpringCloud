@@ -1,5 +1,6 @@
 package com.xjf.demo.config;
 
+import feign.Contract;
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,4 +26,14 @@ public class FeignConfiguration {
     Logger.Level feignLoggerLevel(){
         return Logger.Level.FULL;
     }
+
+    /**
+     * SpringCloud中默认的SpringMVCContract将替换为feign.Contract.Default
+     * 此时之前定义的api client将不能使用，因为其注解是SpringMVC注解
+     * @return
+     */
+    /*@Bean
+    public Contract feignContract(){
+        return new feign.Contract.Default();
+    }*/
 }
