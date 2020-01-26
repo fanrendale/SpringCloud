@@ -14,6 +14,6 @@ import org.springframework.stereotype.Component;
 public class CustomHealthIndicator extends AbstractHealthIndicator {
     @Override
     protected void doHealthCheck(Health.Builder builder) throws Exception {
-        builder.down().withDetail("status", false);
+//        builder.down().withDetail("status", false);
     }
 }
