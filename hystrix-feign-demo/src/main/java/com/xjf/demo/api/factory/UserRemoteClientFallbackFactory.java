@@ -20,7 +20,7 @@ public class UserRemoteClientFallbackFactory implements FallbackFactory<UserRemo
 
     @Override
     public UserRemoteClient create(Throwable throwable) {
-        logger.error("UserRemoteClient回退：{}" , throwable);
+        logger.error("UserRemoteClient回退：" , throwable);
 
         return new UserRemoteClient() {
             @Override
