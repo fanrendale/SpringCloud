@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
- * 开区路由代理功能
+ * 开区路由代理功能：@EnableZuulProxy自带了@EnableDiscoveryClient
  */
 @EnableZuulProxy
 @SpringBootApplication
