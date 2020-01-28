@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 /**
+ * 此处使用RestTemplate调用接口，并使用Hystrix降级
+ *
  * @author xjf
  * @date 2020/1/28 14:49
  */
