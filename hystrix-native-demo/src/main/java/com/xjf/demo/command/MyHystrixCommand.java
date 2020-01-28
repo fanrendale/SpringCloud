@@ -41,6 +41,7 @@ public class MyHystrixCommand extends HystrixCommand<String> {
         //睡眠10s，模拟调用超时失败
 //        TimeUnit.SECONDS.sleep(10);
 
+        System.err.println("非缓存获取数据");
         return this.name + ":" + Thread.currentThread().getName();
     }
 
@@ -52,5 +53,15 @@ public class MyHystrixCommand extends HystrixCommand<String> {
     @Override
     protected String getFallback() {
         return "失败了";
+    }
+
+    /**
+     * 返回缓存key(可以继承三方，如Redis等做缓存）,只是键
+     * 使用缓存在调用时需要初始化HystrixRequestContext
+     * @return
+     */
+    @Override
+    protected String getCacheKey() {
+        return String.valueOf(this.name);
     }
 }
