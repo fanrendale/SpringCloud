@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
- * 合并请求测试
+ * 合并请求测试(此处是编码实现，还可以使用注解实现）
  *
  * @author xjf
  * @date 2020/1/28 11:56
