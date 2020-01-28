@@ -1,6 +1,7 @@
 package com.xjf.demo.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +22,14 @@ public class DemoController {
      * @return
      */
     @GetMapping("/callHello")
-    @HystrixCommand(fallbackMethod = "defaultCallHello")
+    @HystrixCommand(fallbackMethod = "defaultCallHello",
+                    //此处配置，可以设置Hystrix的各种参数
+                    commandProperties = {@HystrixProperty(name = "execution.isolation.strategy", value = "THREAD")}
+                    )
     public String callHello(){
         String result = restTemplate.getForObject("http://localhost:8081/user/hello",String.class);
         System.out.println("调用结果：" + result);
+        System.out.println("隔离策略：" + Thread.currentThread().getName());
 
         return result;
     }
