@@ -14,3 +14,4 @@
     ``` 
     在 Hystrix 隔离模式为 Thread 时，需要设置 timeoutInMillisseconds 超时时间
 4. **经验**： Zuul 路由转发，只能路由 Eureka 注册中心中的其他服务，不能路由本身。
+5. 获取请求头信息：添加一个 pre 类型的过滤器，获取请求信息。

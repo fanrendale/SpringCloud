@@ -3,6 +3,7 @@ package com.xjf.demo.controller;
 import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -28,5 +29,11 @@ public class UserController {
     @GetMapping("/user/infos")
     public Object getInfo(){
         return eurekaClient.getInstancesByVipAddress("eureka-client-user-service",false);
+    }
+
+    @GetMapping("/user/name")
+    public String name(@RequestParam("name") String name){
+        System.out.println("调用了name方法");
+        return name;
     }
 }
