@@ -74,7 +74,11 @@ public class IpFilter extends ZuulFilter {
 
         // 在黑名单中禁用
         if (StringUtils.isNotBlank(ip) && blackIpList.contains(ip)){
+            // 告诉 Zuul 不需要将当前请求转发到后端的服务
             ctx.setSendZuulResponse(false);
+            // 拦截本地转发请求（即设置了 forward:/local 的路由），上一行设置不能实现本地请求的拦截。
+            ctx.set("sendForwardFilter.ran", true);
+
             ResponseData data = ResponseData.fail(" 非法请求 ", ResponseCode.NO_AUTH_CODE.getCode());
             ctx.setResponseBody(JsonUtils.toJson(data));
             ctx.getResponse().setContentType("application/json; charset=utf-8");

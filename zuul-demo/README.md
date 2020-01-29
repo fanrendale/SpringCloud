@@ -14,3 +14,5 @@ RequestContext ctx = RequestContext.getCurrentContext();
 ctx.set("name", "xjf");
 Object name = ctx.get("name");
 ```
+9. 如果有多个过滤器，第一个过滤器不符合条件应直接返回。<br> 该情况不能靠设置 ctx.setSendZuulResponse(false); 解决。
+解决办法：在拦截方法中添加一个参数（比如： ctx.set("isSuccess", false) ），然后再 ShouldFilter 方法中获取参数，判断后面的过滤器是否应该执行。
