@@ -50,12 +50,13 @@ public class IpFilter extends ZuulFilter {
      */
     @Override
     public boolean shouldFilter() {
-        return true;
+        return false;
     }
 
     @Override
     public Object run() throws ZuulException {
-        System.out.println(2/0);
+        // 模拟异常报错，测试异常过滤器
+//        System.out.println(2/0);
 
         RequestContext ctx = RequestContext.getCurrentContext();
         //从请求中获取请求的IP地址

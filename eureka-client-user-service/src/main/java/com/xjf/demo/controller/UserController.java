@@ -17,6 +17,7 @@ public class UserController {
 
     @GetMapping("/user/hello")
     public String hello(){
+        System.out.println("调用了 hello 方法");
         return "hello";
     }
 
