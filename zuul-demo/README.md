@@ -16,3 +16,5 @@ Object name = ctx.get("name");
 ```
 9. 如果有多个过滤器，第一个过滤器不符合条件应直接返回。<br> 该情况不能靠设置 ctx.setSendZuulResponse(false); 解决。
 解决办法：在拦截方法中添加一个参数（比如： ctx.set("isSuccess", false) ），然后再 ShouldFilter 方法中获取参数，判断后面的过滤器是否应该执行。
+10. 过滤器中异常处理：①自定义异常过滤器实现 ZuulFilter ，实现日志记录功能。
+②自定义异常返回数据，自定义 Controller 实现 ErrorController ,可以实现 Json 格式返回。（不用 @ControllerAdvice 的原因是，该方法是作用于 @RequestMapping 的方法上，对 Zuul 无效。

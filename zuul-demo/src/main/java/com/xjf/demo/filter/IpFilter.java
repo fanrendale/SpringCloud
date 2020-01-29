@@ -55,6 +55,8 @@ public class IpFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
+        System.out.println(2/0);
+
         RequestContext ctx = RequestContext.getCurrentContext();
         //从请求中获取请求的IP地址
 //        String ip = IpUtils.getIpAddr(ctx.getRequest());
