@@ -18,3 +18,9 @@ Object name = ctx.get("name");
 解决办法：在拦截方法中添加一个参数（比如： ctx.set("isSuccess", false) ），然后再 ShouldFilter 方法中获取参数，判断后面的过滤器是否应该执行。
 10. 过滤器中异常处理：①自定义异常过滤器实现 ZuulFilter ，实现日志记录功能。
 ②自定义异常返回数据，自定义 Controller 实现 ErrorController ,可以实现 Json 格式返回。（不用 @ControllerAdvice 的原因是，该方法是作用于 @RequestMapping 的方法上，对 Zuul 无效。
+
+---
+
+**第二部分**:
+1. Zuul 的容错机制： zuul 可以配置重试机制，在当前服务不可用时，自动重试该服务的下一个服务，直到遇到可用的服务。
+2. Zuul 的回退机制：有时某个服务都不可用，则调用时会报错。 Zuul 默认整合了Hystrix ，自定义实现回退，需要实现 FallbackProvider 接口，当后端服务异常时设置返回默认的数据。
