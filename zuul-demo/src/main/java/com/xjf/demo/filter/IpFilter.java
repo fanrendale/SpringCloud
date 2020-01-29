@@ -60,11 +60,17 @@ public class IpFilter extends ZuulFilter {
 //        String ip = IpUtils.getIpAddr(ctx.getRequest());
         String ip = null;
         try {
+            //从请求中获取请求的IP地址
             ip = NetworkUtil.getIpAddress(ctx.getRequest());
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("请求的 IP ： " + ip);
+
+        // 测试 RequestContext 传参，可以在多个过滤器中传值
+        ctx.set("name", "xjf");
+        Object name = ctx.get("name");
+        System.out.println(" RequestContext 中取值: name=" + name);
 
         // 在黑名单中禁用
         if (StringUtils.isNotBlank(ip) && blackIpList.contains(ip)){

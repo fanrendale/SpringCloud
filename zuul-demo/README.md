@@ -8,3 +8,9 @@
 6. 使用 zuul 实现 IP 过滤器
 7. zuul 禁用过滤器有两种方式：一、在实现ZuulFilter中的shouldFilter()方法返回false。  
 二、在properties文件中配置：zuul.IpFilter.pre.disable=true。（规则：zuul.过滤器的类名.过滤器类型.disable=true）
+8. 过滤器中传值，使用RequestContext，原理是使用的ThreadLocal。如下：
+```java
+RequestContext ctx = RequestContext.getCurrentContext();
+ctx.set("name", "xjf");
+Object name = ctx.get("name");
+```
