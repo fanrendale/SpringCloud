@@ -15,3 +15,12 @@
     在 Hystrix 隔离模式为 Thread 时，需要设置 timeoutInMillisseconds 超时时间
 4. **经验**： Zuul 路由转发，只能路由 Eureka 注册中心中的其他服务，不能路由本身。
 5. 获取请求头信息：添加一个 pre 类型的过滤器，获取请求信息。
+6. 获取响应内容：添加一个 post 类型的过滤器，有两种方式获取响应内容（原理在书上）：<br>
+    ①从RequestContext中获取参数 "zuulResponse"。
+    ```java
+    Object zuulResponse = RequestContext.getCurrentContext().get("zuulResponse");
+    ```  
+    ②获取响应的数据流
+    ```java
+    InputStream stream = RequestContext.getCurrentContext().getResponseDataStream();
+    ```
