@@ -24,3 +24,13 @@
     ```java
     InputStream stream = RequestContext.getCurrentContext().getResponseDataStream();
     ```
+7. Zuul 自带的 Debug 功能：开启 DebugFilter 过滤器，然后把 Debug 信息添加响应头信息中。配置如下：
+    ```java
+    # Zuul 自带的 Debug 功能
+    # 这两个的配置功能一样：开启 Debug 过滤器
+    zuul.debug.request=true
+    # 此配置是指定请求参数的某个属性的值为true则开启(可以自定义请求中的一个属性)，默认是 debug 属性（可以在请求中加 debug=true ）
+    zuul.debug.parameter=flag
+    # 开启在响应过滤器中将 debug 信息填充到响应头中
+    zuul.include-debug-header=true
+    ```
