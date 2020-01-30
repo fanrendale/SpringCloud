@@ -2,7 +2,7 @@
 server:
   port: 2001
 
-# \u914D\u7F6E\u6CE8\u518C\u4E2D\u5FC3
+# 配置注册中心
 eureka:
   client:
     service-url:
@@ -11,29 +11,29 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
 
-# \u8DEF\u7531\u914D\u7F6E\uFF0C\u52A0\u4E24\u4E2A * \u53F7\uFF0C\u4EE3\u8868\u591A\u7EA7\u5339\u914D
+# 路由配置，加两个 * 号，代表多级匹配
 spring:
   application:
     name: springcloud-gateway-demo
   cloud:
     gateway:
-      # \u8DEF\u7531\u914D\u7F6E
+      # 路由配置
       routes:
-        - id: path_route
-          uri: http://xjf666.xyz
-          predicates:
-          - Path=/course/**
-        - id: user-service
-          # \u670D\u52A1\u540D\u79F0\u533A\u5206\u5927\u5C0F\u5199
-          uri: lb://eureka-client-user-service
-          predicates:
-            - Path=/ecus/**
-          filters:
-          # \u8F6C\u53D1\u8BF7\u6C42\u65F6\u53BB\u63891\u7EA7\u524D\u7F00
-          - StripPrefix=1
+      - id: path_route
+        uri: http://xjf666.xyz
+        predicates:
+        - Path=/course/**
+      - id: user-service
+        # 服务名称区分大小写
+        uri: lb://eureka-client-user-service
+        predicates:
+        - Path=/ecus/**
+        filters:
+        # 转发请求时去掉1级前缀
+        - StripPrefix=1
       discovery:
         locator:
-          # \u5F00\u542F\u81EA\u52A8\u8F6C\u53D1 Eureka \u4E2D\u6CE8\u518C\u7684\u670D\u52A1
+          # 开启自动转发 Eureka 中注册的服务
           enabled: true
-          # \u670D\u52A1\u540D\u79F0\u533A\u5206\u5927\u5C0F\u5199(\u53EA\u80FD\u4E8C\u9009\u4E00)\uFF0C\u6B64\u5904\u4F7F\u7528\u5C0F\u5199
+          # 服务名称区分大小写(只能二选一)，此处使用小写
           lower-case-service-id: true
