@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author xjf
  * @date 2020/1/21 16:59
@@ -17,8 +19,10 @@ public class UserController {
     private EurekaClient eurekaClient;
 
     @GetMapping("/user/hello")
-    public String hello(){
+    public String hello(HttpServletRequest request){
         System.out.println("调用了 hello 方法");
+        System.err.println("过滤器添加的请求头：" + request.getHeader("X-Request-Foo"));
+        System.err.println("请求头：Cache-Control=" + request.getHeader("Cache-Control"));
         return "hello";
     }
 

@@ -19,42 +19,59 @@ spring:
     gateway:
       # 路由配置
       routes:
-#      - id: path_route
-#        uri: http://xjf666.xyz
-#        predicates:
-#        - Path=/course/**
-#      # 1. Path 路由断言工厂
-#      - id: user-service
-#        # 服务名称区分大小写
-#        uri: lb://eureka-client-user-service
-#        predicates:
-#        - Path=/ecus/**
-#        filters:
-#        # 转发请求时去掉1级前缀
-#        - StripPrefix=1
-#      # 2. Query 路由断言工厂，此处匹配请求包含一个属性为 name ，并且值为 dal 开头，后面任意跟一个字符。
-#      #    Query 后面的参数为一个必须的参数和一个可选的正则表达式
-#      # 比如 /user/name?name=dale
-#      - id: user-service2
-#        uri: lb://eureka-client-user-service
-#        predicates:
-#        - Query=name, dal.
-#      # 3. Method 路由断言工厂， 接收一个参数，即要匹配的HTTP方法
+      - id: path_route
+        uri: http://xjf666.xyz
+        predicates:
+        - Path=/course/**
+      # 1. Path 路由断言工厂
+      - id: user-service
+        # 服务名称区分大小写
+        uri: lb://eureka-client-user-service
+        predicates:
+        - Path=/ecus/**
+        filters:
+        # 转发请求时去掉1级前缀
+        - StripPrefix=1
+        # 添加请求头
+        - AddRequestHeader=X-Request-Foo, myHeader
+        # 移除请求头
+        - RemoveRequestHeader=Cache-Control
+        # 接收单个状态，设置 Http 请求的响应码。即自定义所有请求返回的状态码
+        - SetStatus=401
+        # 重定向, 将请求重定向到百度，并指定响应的状态码
+        - RedirectTo=302, http://baidu.com
+
+      # 2. Query 路由断言工厂，此处匹配请求包含一个属性为 name ，并且值为 dal 开头，后面任意跟一个字符。
+      #    Query 后面的参数为一个必须的参数和一个可选的正则表达式
+      # 比如 /user/name?name=dale
+      - id: user-service2
+        uri: lb://eureka-client-user-service
+        predicates:
+        - Query=name, dal.
+
+      # 3. Method 路由断言工厂， 接收一个参数，即要匹配的HTTP方法
 #      - id: user-service3
 #        uri: http://xjf666.xyz
 #        predicates:
 #          - Method=GET
-#      # 4. Header 路由断言工厂，接收两个参数，分别是请求头名称和正则表达式
-#      - id: user-service4
-#        uri: http://www.baidu.com
-#        predicates:
-#          - Header=X-Request-Id, \d+
+
+      # 4. Header 路由断言工厂，接收两个参数，分别是请求头名称和正则表达式
+      - id: user-service4
+        uri: http://www.baidu.com
+        predicates:
+          - Header=X-Request-Id, \d+
+
       # 5. 自定义断言工厂，与 path 断言工厂联合使用: 任何请求以 /order 开始且第一次参数包含 name=xjf 则成功匹配
       - id: customer_route
         uri: http://www.jd.com
         predicates:
         - Path=/order/**
+        # 此种方式配置时，自定义的代码需要实现 shortcutFieldOrder() 方法
         - CheckAuth=xjf
+        # # 此种方式配置时，自定义的代码不需要实现 shortcutFieldOrder() 方法
+#        - name: CheckAuth
+#          args:
+#            name: xjf
       discovery:
         locator:
           # 开启自动转发 Eureka 中注册的服务

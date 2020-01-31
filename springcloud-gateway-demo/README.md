@@ -40,6 +40,31 @@
     - Query 路由断言工厂
     - Method 路由断言工厂
     - Header 路由断言工厂
-5. 自定义断言工厂，必须实现 shortcutFieldOrder() 方法。断言工厂的匹配规则可以用 yml 配置，也可以用代码来配置。
+5. 自定义断言工厂。断言工厂的匹配规则可以用 yml 配置，也可以用代码来配置。**断言工厂可以组合使用**。在 yml 配置时有两种方式，如下：
+    ```yaml
+       predicates:
+        - Path=/order/**
+        # 方式一：自定义的代码需要实现 shortcutFieldOrder() 方法
+        - CheckAuth=xjf
+        # 方式二：自定义的代码不需要实现 shortcutFieldOrder() 方法
+        - name: CheckAuth
+        # 注意：args 与 name 是对齐的，书上没有对齐，会运行失败
+          args:
+            name: xjf
+    ```
+6. 四种过滤器工厂的使用：
+    ```yaml
+    filters:
+        # 转发请求时去掉1级前缀
+        - StripPrefix=1
+        # 添加请求头
+        - AddRequestHeader=X-Request-Foo, myHeader
+        # 移除请求头
+        - RemoveRequestHeader=Cache-Control
+        # 接收单个状态，设置 Http 请求的响应码。即自定义所有请求返回的状态码
+        - SetStatus=401
+        # 重定向, 将请求重定向到百度，并指定响应的状态码
+        - RedirectTo=302, http://baidu.com
+    ```
 
 
