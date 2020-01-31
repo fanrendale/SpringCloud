@@ -40,5 +40,6 @@
     - Query 路由断言工厂
     - Method 路由断言工厂
     - Header 路由断言工厂
+5. 自定义断言工厂，必须实现 shortcutFieldOrder() 方法。断言工厂的匹配规则可以用 yml 配置，也可以用代码来配置。
 
 
