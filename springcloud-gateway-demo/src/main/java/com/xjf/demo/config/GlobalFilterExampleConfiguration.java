@@ -1,4 +1,4 @@
-package com.xjf.demo.configuration;
+package com.xjf.demo.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

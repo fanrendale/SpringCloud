@@ -1,4 +1,4 @@
-package com.xjf.demo.configuration;
+package com.xjf.demo.config;
 
 import com.xjf.demo.predicate.factory.CheckAuthRoutePredicateFactory;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;

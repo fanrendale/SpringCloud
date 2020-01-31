@@ -20,6 +20,22 @@ spring:
     port: 6379
   cloud:
     gateway:
+      # 配置跨域
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            exposeHeaders:
+            - content-type
+            allowedHeaders:
+            - content-type
+            allowCredentials: true
+            allowedMethods:
+            - GET
+            - OPTIONS
+            - PUT
+            - DELETE
+            - POST
       # 路由配置
       routes:
       - id: path_route
