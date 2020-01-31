@@ -72,5 +72,9 @@
 8. 自定义全局过滤器
     - 使用 @Order 来指定执行的顺序，数字越小，优先级越高
     - 自定义实现全局过滤器，只需要实现 GlobalFilter 、 Ordered 两个接口就可以
+9. Gateway 限流，可以使用 IP 限流、用户限流、接口限流，结合 Redis 使用（连接 Redis 时， Redis 的配置保护模式需要关闭。<br>
+测试 IP 限流时，接口访问后，只在几秒的时间内 Redis 会多两个参数，等一会儿就没了，参数是：
+    - request_rate_limiter.{0:0:0:0:0:0:0:1}.tokens     :存储的是当前这秒钟对应的应用可用令牌数量
+    - request_rate_limiter.{0:0:0:0:0:0:0:1}.timestamp  :存储的是当前时间的秒数，时间戳
 
 

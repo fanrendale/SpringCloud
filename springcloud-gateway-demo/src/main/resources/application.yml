@@ -15,6 +15,9 @@ eureka:
 spring:
   application:
     name: springcloud-gateway-demo
+  redis:
+    host: 139.224.129.156
+    port: 6379
   cloud:
     gateway:
       # 路由配置
@@ -47,6 +50,12 @@ spring:
 #            name: 咖啡
         # 自定义过滤器，两个参数
         - CheckAuth2=蔬菜名, 番茄
+        # 结合 Redis 做 IP 限流
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+            key-resolver: "#{@ipKeyResolver}"
 
       # 2. Query 路由断言工厂，此处匹配请求包含一个属性为 name ，并且值为 dal 开头，后面任意跟一个字符。
       #    Query 后面的参数为一个必须的参数和一个可选的正则表达式
