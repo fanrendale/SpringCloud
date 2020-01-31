@@ -69,5 +69,8 @@
 7. 自定义过滤器：<br>
     - 一个参数：继承类 AbstractGatewayFilterFactory
     - 两个参数：继承类 AbstractNameValueGatewayFilterFactory
+8. 自定义全局过滤器
+    - 使用 @Order 来指定执行的顺序，数字越小，优先级越高
+    - 自定义实现全局过滤器，只需要实现 GlobalFilter 、 Ordered 两个接口就可以
 
 
