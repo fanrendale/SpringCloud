@@ -56,6 +56,12 @@ spring:
             redis-rate-limiter.replenishRate: 10
             redis-rate-limiter.burstCapacity: 20
             key-resolver: "#{@ipKeyResolver}"
+        # 熔断回退，Gateway 自带了过滤器
+        - name: Hystrix
+          args:
+            name: fallback
+            # 指定回退的方法
+            fallbackUri: forward:/fallback
 
       # 2. Query 路由断言工厂，此处匹配请求包含一个属性为 name ，并且值为 dal 开头，后面任意跟一个字符。
       #    Query 后面的参数为一个必须的参数和一个可选的正则表达式
