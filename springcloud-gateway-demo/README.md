@@ -66,5 +66,8 @@
         # 重定向, 将请求重定向到百度，并指定响应的状态码
         - RedirectTo=302, http://baidu.com
     ```
+7. 自定义过滤器：<br>
+    - 一个参数：继承类 AbstractGatewayFilterFactory
+    - 两个参数：继承类 AbstractNameValueGatewayFilterFactory
 
 

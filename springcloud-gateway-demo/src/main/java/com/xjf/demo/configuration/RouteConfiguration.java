@@ -1,8 +1,6 @@
 package com.xjf.demo.configuration;
 
-import com.xjf.demo.factory.CheckAuthRoutePredicateFactory;
-import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import com.xjf.demo.predicate.factory.CheckAuthRoutePredicateFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

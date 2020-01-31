@@ -37,9 +37,16 @@ spring:
         # 移除请求头
         - RemoveRequestHeader=Cache-Control
         # 接收单个状态，设置 Http 请求的响应码。即自定义所有请求返回的状态码
-        - SetStatus=401
+#        - SetStatus=401
         # 重定向, 将请求重定向到百度，并指定响应的状态码
-        - RedirectTo=302, http://baidu.com
+#        - RedirectTo=302, http://baidu.com
+        # 自定义过滤器，一个参数(两种配置方式与断言工厂一样)
+        - CheckAuth=土豆
+#        - name: CheckAuth
+#          args:
+#            name: 咖啡
+        # 自定义过滤器，两个参数
+        - CheckAuth2=蔬菜名, 番茄
 
       # 2. Query 路由断言工厂，此处匹配请求包含一个属性为 name ，并且值为 dal 开头，后面任意跟一个字符。
       #    Query 后面的参数为一个必须的参数和一个可选的正则表达式
