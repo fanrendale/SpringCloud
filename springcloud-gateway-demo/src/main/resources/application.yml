@@ -78,6 +78,22 @@ spring:
             name: fallback
             # 指定回退的方法
             fallbackUri: forward:/fallback
+        # 重试机制
+        - name: Retry
+          args:
+            # 重试次数
+            retries: 3
+            # 状态码匹配
+            series: SERVER_ERROR
+            # HttpStatus 状态码匹配
+            statuses: OK
+            # 指定请求进行重试，默认 GET
+            methods:
+            - GET
+            - POST
+            # 指定异常需要重试
+            exceptions:
+            - java.io.IOException
 
       # 2. Query 路由断言工厂，此处匹配请求包含一个属性为 name ，并且值为 dal 开头，后面任意跟一个字符。
       #    Query 后面的参数为一个必须的参数和一个可选的正则表达式

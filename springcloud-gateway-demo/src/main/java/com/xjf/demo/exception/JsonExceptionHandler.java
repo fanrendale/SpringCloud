@@ -66,6 +66,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      */
     @Override
     protected HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
+        // 在 response 方法中定义的状态码字段是 code，所以此处用 code
         int statusCode = (int) errorAttributes.get("code");
         return HttpStatus.valueOf(statusCode);
     }
@@ -100,6 +101,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      */
     public static Map<String, Object> response(int status, String errorMessage){
         Map<String, Object> map = new HashMap<>();
+        // 此处的状态码用的是 code
         map.put("code", status);
         map.put("message", errorMessage);
         map.put("data", null);
