@@ -80,7 +80,7 @@
 11. 配置跨域两种方式：①使用代码配置 ②使用 yml 配置  
 12. 网关的全局异常处理: Gateway 中的全局异常不用使用 @ControllerAdvice ，需要自己使用 Json 返回。
 该全局异常处理只对网关有用，服务间的异常不受影响（还是用 @ControllerAdvice 处理）。
-13. 重试机制：RetryGatewayFilter 是 Spring Cloud Gateway 对请求重试提供的一个 GatewayFilterFactory。配置方式如下：
+13. 重试机制（在请求的服务接口报错时进行重试）：RetryGatewayFilter 是 Spring Cloud Gateway 对请求重试提供的一个 GatewayFilterFactory。配置方式如下：
     ```yaml
     # 重试机制
     - name: Retry
