@@ -78,5 +78,6 @@
     - request_rate_limiter.{0:0:0:0:0:0:0:1}.timestamp  :存储的是当前时间的秒数，时间戳
 10. 熔断回退：实现请求服务不可达时，降级的方法。目前支持 forward 模式的URI。  
 11. 配置跨域两种方式：①使用代码配置 ②使用 yml 配置  
-
+12. 网关的全局异常处理: Gateway 中的全局异常不用使用 @ControllerAdvice ，需要自己使用 Json 返回。
+该全局异常处理只对网关有用，服务间的异常不受影响（还是用 @ControllerAdvice 处理）。
 

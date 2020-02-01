@@ -16,6 +16,9 @@ public class FallbackController {
     public String fallback(){
         System.err.println("进入了熔断回退的方法");
 
+        // 模拟异常
+        System.out.println(2/0);
+
         return "fallback";
     }
 }

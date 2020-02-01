@@ -23,6 +23,10 @@ public class UserController {
         System.out.println("调用了 hello 方法");
         System.err.println("过滤器添加的请求头：" + request.getHeader("X-Request-Foo"));
         System.err.println("请求头：Cache-Control=" + request.getHeader("Cache-Control"));
+
+        // 模拟异常
+//        System.out.println(2/0);
+
         return "hello";
     }
 
