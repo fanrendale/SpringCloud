@@ -36,7 +36,7 @@ public class TestController {
     private UserConfig userConfig;
 
     /**
-     * 3. ConfigurationProperties 方式注入值。配置中心配置 redis.cache.host。（不推荐）
+     * 3. ConfigurationProperties 方式注入值。配置中心配置 redis.cache.host。（值不会自动刷新，不推荐）
      */
     @Autowired
     private RedisConfig redisConfig;
