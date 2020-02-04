@@ -8,5 +8,16 @@ import org.springframework.stereotype.Service;
  */
 public interface TestService {
 
+    /**
+     * 异步方法
+     * @param log
+     */
     void saveLog(String log);
+
+    /**
+     *  本地方法手动埋点
+     *
+     * @param log
+     */
+    void saveLog2(String log);
 }

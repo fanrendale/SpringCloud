@@ -30,6 +30,9 @@ public class TestController {
         // 调用异步方法
         testService.saveLog("test");
 
+        //调用本地方法
+        testService.saveLog2("test");
+
         return result;
     }
 }

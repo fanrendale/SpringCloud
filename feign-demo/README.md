@@ -24,3 +24,4 @@
  在 Controller 中调用了一个异步的 Service 方法，如果在自定义了异步任务线程池后，直接返回 executor ，则该异步任务就不会显示出 Span。而使用了 LazyTraceExecutor 来包装，
  则会显示出来。
 9. TracingFilter 添加自定义的标记以及将请求 ID 添加到响应头返回给客户端
+10. Sleuth 监控本地方法两种：一、手动埋点。 二、 @NewSpan 注解埋点
