@@ -13,3 +13,11 @@
     </dependency>
     ```
 5. 配置 logback ，实现日志使用 Json 格式输出
+6. 集成 ZipKin ，显示调用日志
+7. ZipKin 抽样比例设置
+    ```properties
+    # zipKin 抽样比例:默认是调用10次记录一次，改为1.0每次都记录
+    spring.sleuth.sampler.probability=1.0
+    ```
+8. 异步任务线程池定义，使用 @Async开启一个异步任务后， Sleuth 会为调用创建一个 Span。如果自定义了异步任务的线程池，则无法创建 Span，就需要使用
+ Sleuth 提供的 LazyTraceExecutor 来包装。（不是很懂）

@@ -2,6 +2,7 @@ package com.xjf.demo.controller;
 
 import com.xjf.demo.api.client.UserRemoteClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,11 @@ public class TestController {
     @Autowired
     private UserRemoteClient userRemoteClient;
 
+    /**
+     * 异步执行
+     * @return
+     */
+//    @Async
     @GetMapping("/callHello")
     public String callHello(){
         String result = userRemoteClient.hello();
