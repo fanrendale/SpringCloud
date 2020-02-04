@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * 客户端测试
+ * 模拟客户端，测试服务端的实时推送
  *
  * @author xjf
  * @date 2020/2/3 20:04
