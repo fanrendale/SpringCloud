@@ -21,3 +21,4 @@
     ```
 8. 异步任务线程池定义，使用 @Async开启一个异步任务后， Sleuth 会为调用创建一个 Span。如果自定义了异步任务的线程池，则无法创建 Span，就需要使用
  Sleuth 提供的 LazyTraceExecutor 来包装。（不是很懂）
+9. TracingFilter 添加自定义的标记以及将请求 ID 添加到响应头返回给客户端
