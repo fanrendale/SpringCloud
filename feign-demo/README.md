@@ -26,3 +26,6 @@
 9. TracingFilter 添加自定义的标记以及将请求 ID 添加到响应头返回给客户端
 10. Sleuth 监控本地方法两种：一、手动埋点。 二、 @NewSpan 注解埋点
 11. 过滤不想跟踪的请求：对于某些请求不想跟踪，可以通过配置 HttpSampler 来过滤掉，如果 swagger 等请求。
+12. 升级：
+    1. 可以用 Rabbit 代替 Http 发送调用链数据，避免数据丢失
+    2. 调用的日志信息存储在 ZipKin 的内存中，可以继承 ElasticSearch 来持久化，便于搜索
