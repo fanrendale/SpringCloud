@@ -29,6 +29,7 @@ public class CustomerExecutorConfig extends AsyncConfigurerSupport {
         executor.setThreadNamePrefix("xjf-");
         executor.initialize();
 
+//        return executor;
         // 如果不用 LazyTraceExecutor ，则会少一个 Span
         return new LazyTraceExecutor(this.beanFactory, executor);
     }

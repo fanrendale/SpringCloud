@@ -32,6 +32,8 @@ public class MyFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("进入 MyFilter 了");
+
         Span currentSpan = this.tracer.currentSpan();
 
         if (currentSpan == null){
