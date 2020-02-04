@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * 客户端测试(还未成功)
+ * 客户端测试
  *
  * @author xjf
  * @date 2020/2/3 20:04
@@ -23,7 +23,7 @@ public class ClientTest {
         String result = request("http://localhost:8081/getConfig");
         if (result != null){
             //配置有更新，重新拉取配置
-            System.out.println(result);
+            System.out.println("配置有更新，重新拉取配置");
         }
 
         //重新注册

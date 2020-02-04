@@ -20,6 +20,7 @@ public class ReleaseMessageScanner implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        System.out.println("启动定时服务");
         // 定时任务从数据库扫描有没有新的配置发布
         new Thread(() -> {
             for (;;) {
@@ -30,6 +31,6 @@ public class ReleaseMessageScanner implements InitializingBean {
                     configController.handleMessage(message);
                 }
             }
-        });
+        }).start();
     }
 }
