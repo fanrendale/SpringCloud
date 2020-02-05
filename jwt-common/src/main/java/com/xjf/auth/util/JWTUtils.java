@@ -70,6 +70,7 @@ public class JWTUtils {
      * @return
      */
     public String getToken(String uid){
+        // 默认有效期为 24 小时
         long endTime = System.currentTimeMillis() + 1000 * 60 * 1440;
         return Jwts.builder().setSubject(uid).setExpiration(new Date(endTime))
                 .signWith(SignatureAlgorithm.RS512, priKey).compact();
