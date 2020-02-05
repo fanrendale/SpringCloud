@@ -20,11 +20,24 @@ public class CustomerController {
     @Autowired
     private AuthRemoteClient authRemoteClient;
 
+    @Autowired
+    private UserRemoteClient userRemoteClient;
+
 
     @GetMapping("/callToken")
     public String getToken(){
         //从本地配置中取
-
         return System.getProperty("customer.auth.token");
+    }
+
+    /**
+     * 调用服务提供者接口
+     * @return
+     */
+    @GetMapping("/callHello")
+    public String callHello(){
+        String result = userRemoteClient.hello();
+
+        return result;
     }
 }

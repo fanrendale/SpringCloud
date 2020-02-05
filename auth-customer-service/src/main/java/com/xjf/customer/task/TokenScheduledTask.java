@@ -44,7 +44,7 @@ public class TokenScheduledTask {
             }
         }
 
-        // 将 token 值存储到系统的 property 中
+        // 将 token 值存储到本地的环境变量中
         System.setProperty("customer.auth.token", token);
     }
 
