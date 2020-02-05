@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author xjf
@@ -23,6 +24,9 @@ public class CustomerController {
     @Autowired
     private UserRemoteClient userRemoteClient;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     @GetMapping("/callToken")
     public String getToken(){
@@ -31,13 +35,23 @@ public class CustomerController {
     }
 
     /**
-     * 调用服务提供者接口
+     * 1. Feign 方式调用服务提供者接口
      * @return
      */
     @GetMapping("/callHello")
     public String callHello(){
         String result = userRemoteClient.hello();
 
+        return result;
+    }
+
+    /**
+     * 2. 通过 RestTemplate 调用服务提供者的接口
+     * @return
+     */
+    @GetMapping("/callHello2")
+    public String callHelloByRestTemplate(){
+        String result = restTemplate.getForObject("http://auth-user-service/user/hello", String.class);
         return result;
     }
 }
