@@ -39,7 +39,7 @@ public class LoginController {
     }
 
     /**
-     * Get 方式登录任务
+     * Get 方式登录认证
      * @param user
      * @return
      */
