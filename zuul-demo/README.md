@@ -26,3 +26,4 @@ Object name = ctx.get("name");
 2. Zuul 的回退机制：有时某个服务都不可用，则调用时会报错。 Zuul 默认整合了Hystrix ，自定义实现回退，需要实现 FallbackProvider 接口，当后端服务异常时设置返回默认的数据。
 3. @EnableZuulProxy 与 Spring Boot Actuator 配合使用时，暴露所有端点，可以访问 "http://localhost:2103/actuator/routes" 查看路由信息。
 4. 端点对应关系: /routes ===> 所有路由信息。  /filters ===> 所有过滤器信息
+5. 在 Zuul 中聚合所有服务的 Swagger 文档，去除调自身服务。这样方便文档统一管理。 在 Web 页面的右上角可以选择不同的服务来查看文档。
