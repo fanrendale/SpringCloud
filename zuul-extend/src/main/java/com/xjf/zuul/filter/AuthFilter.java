@@ -3,9 +3,15 @@ package com.xjf.zuul.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import com.xjf.auth.common.ResponseCode;
+import com.xjf.auth.common.ResponseData;
+import com.xjf.auth.util.JWTUtils;
+import com.xjf.auth.util.JsonUtils;
 import com.xjf.zuul.config.BasicConf;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -68,7 +74,39 @@ public class AuthFilter extends ZuulFilter {
             }
         }
 
-        System.err.println("当前uri不在白名单中：" + uri);
+        System.err.println("====================当前uri不在白名单中：" + uri + ", 将进行拦截验证====================");
+
+        // 验证 token
+        JWTUtils jwtUtils = JWTUtils.getInstance();
+        HttpServletRequest request = ctx.getRequest();
+        String token = request.getHeader("Authorization");
+
+        // 1. 没有 token 的情况
+        if (StringUtils.isBlank(token)){
+            ctx.setSendZuulResponse(false);
+            // 参数传递，下面的过滤器可以根据该参数判断是否继续执行
+            ctx.set("isSuccess", false);
+            ResponseData data = ResponseData.fail(" 非法请求【缺少 Authorization 信息】", ResponseCode.NO_AUTH_CODE.getCode());
+            ctx.setResponseBody(JsonUtils.toJson(data));
+            ctx.getResponse().setContentType("application/json; charset=utf-8");
+            return null;
+        }
+
+        JWTUtils.JWTResult jwtResult = jwtUtils.checkToken(token);
+        if (!jwtResult.isStatus()){
+            // 2. token 验证不合格的情况
+            ctx.setSendZuulResponse(false);
+            // 参数传递，下面的过滤器可以根据该参数判断是否继续执行
+            ctx.set("isSuccess", false);
+            ResponseData data = ResponseData.fail(jwtResult.getMsg(), ResponseCode.NO_AUTH_CODE.getCode());
+            ctx.setResponseBody(JsonUtils.toJson(data));
+            ctx.getResponse().setContentType("application/json; charset=utf-8");
+            return null;
+        }
+
+        // token 验证成功，将用户名放入请求头中
+        ctx.addZuulRequestHeader("username", jwtResult.getUid());
+
         return null;
     }
 }
