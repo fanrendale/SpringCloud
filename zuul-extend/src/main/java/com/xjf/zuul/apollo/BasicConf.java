@@ -19,4 +19,10 @@ public class BasicConf {
      */
     @Value("${apiWhiteStr:/zuul-extend-user-service/user/login}")
     private String apiWhiteStr;
+
+    /**
+     * 使用 Redis 做集群限流，其一秒的限流值
+     */
+    @Value("${clusterLimitRate:10}")
+    private int clusterLimitRate;
 }

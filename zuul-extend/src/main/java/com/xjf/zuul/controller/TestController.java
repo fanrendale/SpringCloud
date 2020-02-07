@@ -28,4 +28,9 @@ public class TestController {
     public double limitRate(){
         return limitConf.getLimitRate();
     }
+
+    @GetMapping("/cluster")
+    public int clusterRate(){
+        return basicConf.getClusterLimitRate();
+    }
 }
