@@ -35,6 +35,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>com.xjf</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
