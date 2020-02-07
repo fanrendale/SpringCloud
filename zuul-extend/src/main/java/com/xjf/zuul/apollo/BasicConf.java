@@ -1,4 +1,4 @@
-package com.xjf.zuul.config;
+package com.xjf.zuul.apollo;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

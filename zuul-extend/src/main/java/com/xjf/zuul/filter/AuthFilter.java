@@ -7,7 +7,7 @@ import com.xjf.auth.common.ResponseCode;
 import com.xjf.auth.common.ResponseData;
 import com.xjf.auth.util.JWTUtils;
 import com.xjf.auth.util.JsonUtils;
-import com.xjf.zuul.config.BasicConf;
+import com.xjf.zuul.apollo.BasicConf;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
