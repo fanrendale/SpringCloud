@@ -7,7 +7,7 @@
     - 令牌桶法：在规定时间内的最高并发量确定，比如1s 最多处理1000个请求，多的请求就等待。Google Guava 有实现，直接使用 RateLimiter 类。
     - 漏桶：输出速率一定，输入速率不定，如果超出了容量，则抛弃。
 5. RateLimiter 的令牌桶法限流，使用了 Apollo 配置，可以动态配置 1s 的最大产生令牌数，即 1s 的最大处理请求数。实现了动态限流。
-6. 使用 ab压测工具 模拟访问，参考博客:https://www.cnblogs.com/chanwahfung/p/11877021.html。使用如下：
+6. 使用 ab压测工具 模拟访问，参考博客:https://www.cnblogs.com/chanwahfung/p/11877021.html。 使用如下：
     ```jshelllanguage
     ab -n 1000 -c 30 http://localhost:2103/zuul-extend-user-service/user/hello
     ```
@@ -23,3 +23,17 @@
     - 如果 value 值大于了限流的值，则这 1s 后面的请求都不处理（返回提醒），如果是小于限流值则成功访问接口。
     - 由于所有的网关服务都使用的 Redis ， 保证所有网关服务的时间一致，因此 Redis 是共享的，就实现了集群的限流。
 4. 双重保护：在过滤器中首先进行集群限流，Redis 可能会挂，在异常捕获中使用单节点限流。如此做到双重保护。
+
+#### 具体服务限流（俺没有实现）：
+1. 单节点服务限流：单节点限流使用的是 RateLimiter ,要针对具体的服务，则给不同的服务用不同的 RateLimiter 就可以了。
+2. 集群的服务限流：集群限流使用的 Redis 的 key 来区别。要针对具体的服务，则在生成 key 的时候，加上对应的服务名称，则可以实现不同的服务限流。
+   在 RibbonRoutingFilter 中有获取当前请求的服务 ID：
+   ```java
+    @Override
+    public boolean shouldFilter() {
+        RequestContext ctx = RequestContext.getCurrentContext();
+       // 获取具体的 serviceId
+        return (ctx.getRouteHost() == null && ctx.get(SERVICE_ID_KEY) != null
+                && ctx.sendZuulResponse());
+    }
+    ```
