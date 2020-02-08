@@ -2,6 +2,7 @@ package com.xjf.zuul.config;
 
 import com.xjf.zuul.apollo.LimitConf;
 import com.xjf.zuul.filter.AuthFilter;
+import com.xjf.zuul.filter.DownFilter;
 import com.xjf.zuul.filter.LimitFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,5 +29,10 @@ public class BeanConfiguration {
     @Bean
     public LimitFilter limitFilter(){
         return new LimitFilter();
+    }
+
+    @Bean
+    public DownFilter downFilter(){
+        return new DownFilter();
     }
 }

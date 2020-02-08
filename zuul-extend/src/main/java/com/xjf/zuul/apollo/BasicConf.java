@@ -25,4 +25,10 @@ public class BasicConf {
      */
     @Value("${clusterLimitRate:10}")
     private int clusterLimitRate;
+
+    /**
+     * 降级服务的 serviceId 名单，多个用逗号隔开
+     */
+    @Value("${downGradeServiceStr:default}")
+    private String downGradeServiceStr;
 }
