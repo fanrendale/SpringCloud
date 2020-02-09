@@ -37,6 +37,7 @@ public class TestController {
             e.printStackTrace();
         }
 
+        System.out.println("调用了 /user/hello 方法 ");
         return "我是 zuul-extend-user-service 服务的 hello 方法";
     }
 

@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author xjf
  * @date 2020/2/8 22:20
  */
-public class DownFilter extends ZuulFilter {
+public class DownGradeFilter extends ZuulFilter {
 
     @Autowired
     private BasicConf basicConf;

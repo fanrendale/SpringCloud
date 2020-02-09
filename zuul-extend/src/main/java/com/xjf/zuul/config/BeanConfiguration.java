@@ -2,8 +2,10 @@ package com.xjf.zuul.config;
 
 import com.xjf.zuul.apollo.LimitConf;
 import com.xjf.zuul.filter.AuthFilter;
-import com.xjf.zuul.filter.DownFilter;
+import com.xjf.zuul.filter.DownGradeFilter;
+import com.xjf.zuul.filter.GrayPushFilter;
 import com.xjf.zuul.filter.LimitFilter;
+import com.xjf.zuul.rule.GrayPushRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,7 +34,17 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public DownFilter downFilter(){
-        return new DownFilter();
+    public DownGradeFilter downFilter(){
+        return new DownGradeFilter();
     }
+
+    @Bean
+    public GrayPushFilter grayPushFilter(){
+        return new GrayPushFilter();
+    }
+
+    /*@Bean
+    public GrayPushRule grayPushRule(){
+        return new GrayPushRule();
+    }*/
 }

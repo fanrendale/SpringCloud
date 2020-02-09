@@ -31,4 +31,16 @@ public class BasicConf {
      */
     @Value("${downGradeServiceStr:default}")
     private String downGradeServiceStr;
+
+    /**
+     * 灰度发布的服务器地址，多个用英文逗号隔开。如：localhost:8088
+     */
+    @Value("${grayPushServers:default}")
+    private String grayPushServers;
+
+    /**
+     * 灰度发布的用户 id 集合，多个用逗号隔开
+     */
+    @Value("${grayPushUsernames:default}")
+    private String grayPushUsernames;
 }
