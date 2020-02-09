@@ -64,4 +64,7 @@
 4. 可以按用户名称来使用灰度，也可按 IP 来使用，也可按其他的纬度来区分用户。
 5. 问题：如果服务的灰度地址挂了，但是在注册中心中其服务地址还在，而此时会自定义负载均衡策略还是会返回该服务，因此会调用失败。
    只有等注册中心将该服务剔除后，才会去获取到非灰度的地址。因此会有一段时间报错。
- 
+
+#### 框架地址
+1. 限流：https://github.com/marcosbarbero/spring-cloud-zuul-ratelimit
+2. 灰度：https://github.com/Nepxion/Discovery
