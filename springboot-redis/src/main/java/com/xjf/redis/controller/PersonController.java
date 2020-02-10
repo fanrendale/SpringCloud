@@ -47,9 +47,8 @@ public class PersonController {
     public String get() throws InterruptedException {
         System.out.println(personService.get("1001"));
         System.out.println(personService.get("1001"));
-        System.out.println(personService.get("1001"));
 
-        TimeUnit.MINUTES.sleep(2);
+//        TimeUnit.SECONDS.sleep(40);
 
         System.out.println("================================分隔符==============================");
 

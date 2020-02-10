@@ -24,7 +24,12 @@
         return person;
     }
     ```
-    - 书上讲解的是会生成一个 zset 保存所有的 id 值，zset 的 key 为 get。实践出来没有 zset
+    - 书上讲解的是会生成一个 ZSet 保存所有的 id 值，ZSet 的 key 为 get。实践出来没有 ZSet
     - 真实运行生成只有一个 String ，如果传的 id 值为 1001 ， 则真实 key 为 ：get::1001
     - 不一致的原因可能是 Redis 版本不一致。没实践。
+#### 缓存异常处理
+1. 我们在使用 Redis 来做缓存时，可能会发生 Redis 服务挂掉，此时调用接口会报错，无法提供服务。我们应该进行异常处理，让 Redis 服务挂掉后也能从
+   数据库查数据来继续提供服务。
+2. 实现：添加一个配置类，继承实现 CachingConfigurerSupport 类，然后 errorHandler() 方法，并实现每种异常的具体处理。
+3. 此时在 Redis 服务挂了之后，也能正常的提供服务。
      

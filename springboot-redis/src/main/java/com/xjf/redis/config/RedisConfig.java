@@ -79,7 +79,7 @@ public class RedisConfig {
         RedisCacheConfiguration cacheConfiguration =
                 RedisCacheConfiguration.defaultCacheConfig()
                         // 设置缓存有效期 30s
-                        .entryTtl(Duration.ofSeconds(100))
+                        .entryTtl(Duration.ofSeconds(30))
                         // 不缓存空值
                         .disableCachingNullValues()
                         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
