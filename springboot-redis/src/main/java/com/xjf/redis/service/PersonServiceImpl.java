@@ -28,4 +28,9 @@ public class PersonServiceImpl implements PersonService {
 
         return person;
     }
+
+    @Override
+    public Person findById(String id) {
+        return new Person(id, "亚索", "666666");
+    }
 }

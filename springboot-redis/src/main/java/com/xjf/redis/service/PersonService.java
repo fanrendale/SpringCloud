@@ -9,4 +9,6 @@ import com.xjf.redis.entity.Person;
 public interface PersonService {
 
     Person get(String id);
+
+    Person findById(String id);
 }
