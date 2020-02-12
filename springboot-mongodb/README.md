@@ -16,3 +16,5 @@
     - 在实现时需要继承实现 AbstractMongoEventListener 类，来实现自定义的自增逻辑。
 2. 自增 ID 的实现，就类似于 MySQL 中的自增 ID。
 3. 测试在 Junit 中
+#### 4. 自定义实现批量更新
+1. 原理应该是调用的 MongoDB 的原生 js 命令。
