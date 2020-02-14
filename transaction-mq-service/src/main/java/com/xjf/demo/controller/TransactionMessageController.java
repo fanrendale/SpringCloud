@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 可靠性消息接口
@@ -62,7 +63,21 @@ public class TransactionMessageController {
 	 */
 	@GetMapping("/waiting")
 	public List<TransactionMessage> findByWatingMessage(@RequestParam("limit")int limit) {
-		return transactionMessageService.findByWaitingMessage(limit);
+	    // 模拟睡眠 30s
+        /*try {
+            TimeUnit.SECONDS.sleep(30);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+        try {
+            int a = 2/0;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+
+        return transactionMessageService.findByWaitingMessage(limit);
 	}
 
 	/**
