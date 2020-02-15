@@ -1,5 +1,6 @@
 package com.xjf.demo;
 
+import com.xjf.demo.dao.TransactionMessageDao;
 import com.xjf.demo.entity.TransactionMessage;
 import com.xjf.demo.enums.TransactionMessageStatusEnum;
 import org.junit.Test;
@@ -18,6 +19,9 @@ public class DemoApplicationTests {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private TransactionMessageDao transactionMessageDao;
 
     @Test
     public void add(){
@@ -54,5 +58,11 @@ public class DemoApplicationTests {
         }
 
         return 0;
+    }
+
+    @Test
+    public void find(){
+        TransactionMessage message = transactionMessageDao.findById(1L);
+        System.err.println(message);
     }
 }

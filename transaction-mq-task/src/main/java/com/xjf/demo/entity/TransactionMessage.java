@@ -45,7 +45,7 @@ public class TransactionMessage {
     /**
      * 最近发送消息时间
      */
-    private Date SendDate;
+    private Date sendDate;
 
     /**
      * 状态：0-等待消费 1-已消费 2-已死亡

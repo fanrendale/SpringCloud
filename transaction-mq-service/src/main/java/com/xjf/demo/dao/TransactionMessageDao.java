@@ -7,11 +7,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class TransactionMessageDao {
      * @return 插入条数
      */
     public int insert(TransactionMessage message){
-        String sql = "insert into transaction_message(id, message, queue, send_system, send_count, c_date" +
+        String sql = "insert into transaction_message(id, message, queue, send_system, send_count, create_date" +
                 ", send_date, status, die_count, customer_date, customer_system, die_date) " +
                 "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
@@ -53,7 +52,7 @@ public class TransactionMessageDao {
      * @return
      */
     public int[] batchInsert(List<TransactionMessage> list){
-        String sql = "insert into transaction_message(id, message, queue, send_system, send_count, c_date" +
+        String sql = "insert into transaction_message(id, message, queue, send_system, send_count, create_date" +
                 ", send_date, status, die_count, customer_date, customer_system, die_date) " +
                 "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
@@ -66,13 +65,13 @@ public class TransactionMessageDao {
                 preparedStatement.setString(3, message.getQueue());
                 preparedStatement.setString(4, message.getSendSystem());
                 preparedStatement.setInt(5, message.getSendCount());
-                preparedStatement.setDate(6, new Date(message.getCreateDate().getTime()));
-                preparedStatement.setDate(7, new Date(message.getSendDate().getTime()));
+                preparedStatement.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+                preparedStatement.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
                 preparedStatement.setInt(8, message.getStatus());
                 preparedStatement.setInt(9, message.getDieCount());
-                preparedStatement.setDate(10, new Date(message.getCustomerDate().getTime()));
+                preparedStatement.setTimestamp(10, new Timestamp(System.currentTimeMillis()));
                 preparedStatement.setString(11, message.getCustomerSystem());
-                preparedStatement.setDate(12, new Date(message.getDieDate().getTime()));
+                preparedStatement.setTimestamp(12, new Timestamp(System.currentTimeMillis()));
             }
 
             @Override
@@ -88,7 +87,8 @@ public class TransactionMessageDao {
      * @return
      */
     public int update(TransactionMessage message){
-        String sql = "update transaction_message set message = ?, queue = ?, send_system = ?, send_count = ?, c_date = ?" +
+        // 这种方式注入值时，如果实体的值为 null ，则会报空指针异常
+        String sql = "update transaction_message set message = ?, queue = ?, send_system = ?, send_count = ?, create_date = ?" +
                 ", send_date = ?, status = ?, die_count = ?, customer_date = ?, customer_system = ?, die_date = ? " +
                 "where id = ? ";
         return jdbcTemplate.update(sql,  message.getMessage(), message.getQueue(), message.getSendSystem(), message.getSendCount(),
@@ -104,7 +104,25 @@ public class TransactionMessageDao {
     public TransactionMessage findById(Long id){
         String sql = "select * from transaction_message where id = ?";
 
-        return jdbcTemplate.queryForObject(sql, new Long[]{id}, TransactionMessage.class);
+        return jdbcTemplate.queryForObject(sql, new Long[]{id}, new RowMapper<TransactionMessage>() {
+            @Override
+            public TransactionMessage mapRow(ResultSet rs, int rowNum) throws SQLException {
+                TransactionMessage message = new TransactionMessage();
+                message.setId(rs.getLong("id"));
+                message.setMessage(rs.getString("message"));
+                message.setQueue(rs.getString("queue"));
+                message.setSendSystem(rs.getString("send_system"));
+                message.setSendCount(rs.getInt("send_count"));
+                message.setCreateDate(rs.getTimestamp("create_date"));
+                message.setSendDate(rs.getTimestamp("send_date"));
+                message.setStatus(rs.getInt("status"));
+                message.setDieCount(rs.getInt("die_count"));
+                message.setCustomerDate(rs.getTimestamp("customer_date"));
+                message.setCustomerSystem(rs.getString("customer_system"));
+                message.setDieDate(rs.getTimestamp("die_date"));
+                return message;
+            }
+        });
     }
 
     /**

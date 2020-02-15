@@ -1,6 +1,7 @@
 package com.xjf.demo.entity;
 
 import com.xjf.demo.enums.TransactionMessageStatusEnum;
+import com.xjf.demo.util.DateUtils;
 import lombok.Data;
 
 import java.util.Date;
@@ -35,7 +36,7 @@ public class TransactionMessage {
     /**
      * 重复发送消息次数
      */
-    private int sendCount;
+    private int sendCount = 0;
 
     /**
      * 创建时间
@@ -45,7 +46,7 @@ public class TransactionMessage {
     /**
      * 最近发送消息时间
      */
-    private Date SendDate;
+    private Date sendDate;
 
     /**
      * 状态：0-等待消费 1-已消费 2-已死亡
@@ -60,15 +61,15 @@ public class TransactionMessage {
     /**
      * 消费时间
      */
-    private Date customerDate;
+    private Date customerDate = DateUtils.stringToDate("2000-01-01 00:00:00");
 
     /**
      * 消费系统
      */
-    private String customerSystem;
+    private String customerSystem = "defaultCustomer";
 
     /**
      * 死亡时间
      */
-    private Date dieDate;
+    private Date dieDate = DateUtils.stringToDate("2000-01-01 00:00:00");
 }

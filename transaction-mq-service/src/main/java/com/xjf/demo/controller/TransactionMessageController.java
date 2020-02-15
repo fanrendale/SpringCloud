@@ -70,13 +70,6 @@ public class TransactionMessageController {
             e.printStackTrace();
         }*/
 
-        try {
-            int a = 2/0;
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
-
         return transactionMessageService.findByWaitingMessage(limit);
 	}
 
@@ -105,6 +98,8 @@ public class TransactionMessageController {
 				return transactionMessageService.incrSendCount(messageId, DateUtils.str2Date(sendDate));
 			}
 		} catch (ParseException e) {
+			System.err.println("传入ID：" + messageId + "传入时间：" + sendDate);
+
 			e.printStackTrace();
 			return false;
 		}

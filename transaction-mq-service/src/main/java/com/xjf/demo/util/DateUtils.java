@@ -1,6 +1,7 @@
 package com.xjf.demo.util;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -75,5 +76,14 @@ public class DateUtils {
         cal.set(13, 59);
         cal.set(14, 999);
         return cal.getTime();
+    }
+
+    public static Date stringToDate(String dateStr){
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date();
     }
 }

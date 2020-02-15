@@ -18,16 +18,22 @@ public class TransactionMqServiceRemoteClientHystrix implements TransactionMqSer
 
     @Override
     public boolean sendMessage(TransactionMessage message) {
+        System.err.println("消息服务的 sendMessage 方法调用失败");
+
         return false;
     }
 
     @Override
     public boolean sendMessage(List<TransactionMessage> messages) {
+        System.err.println("消息服务的 sendMessage 方法调用失败");
+
         return false;
     }
 
     @Override
     public boolean confirmCustomerMessage(String customerSystem, Long messageId) {
+        System.err.println("消息服务的 confirmCustomerMessage 方法调用失败");
+
         return false;
     }
 
@@ -39,21 +45,29 @@ public class TransactionMqServiceRemoteClientHystrix implements TransactionMqSer
 
     @Override
     public boolean confirmDieMessage(Long messageId) {
+        System.err.println("消息服务的 confirmDieMessage 方法调用失败");
+
         return false;
     }
 
     @Override
     public boolean incrSendCount(Long messageId, String sendDate) {
+        System.err.println("消息服务的 incrSendCount 方法调用失败");
+
         return false;
     }
 
     @Override
     public boolean retrySendDieMessage() {
+        System.err.println("消息服务的 retrySendDieMessage 方法调用失败");
+
         return false;
     }
 
     @Override
     public List<TransactionMessage> findMessageByPage(int pageNum, int pageSize, int status) {
+        System.err.println("消息服务的 findMessageByPage 方法调用失败");
+
         return null;
     }
 }
