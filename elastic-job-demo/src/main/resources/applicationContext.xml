@@ -11,8 +11,18 @@
                         http://www.dangdang.com/schema/ddframe/job/job.xsd
                         ">
     <!--配置作业注册中心 -->
-    <reg:zookeeper id="regCenter" server-lists="192.168.43.8:2181" namespace="dd-job" base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="3" />
+    <reg:zookeeper id="regCenter" server-lists="192.168.43.8:2181" namespace="dd-job"
+                   base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="3" />
 
     <!-- 配置作业 每 10s 执行一次-->
-    <job:simple id="demoSimpleSpringJob" class="com.xjf.demo.job.MySimpleJob" registry-center-ref="regCenter" cron="0/10 * * * * ?" sharding-total-count="1" sharding-item-parameters="" />
+    <!--<job:simple id="demoSimpleSpringJob" class="com.xjf.demo.job.MySimpleJob" registry-center-ref="regCenter"
+                cron="0/10 * * * * ?" sharding-total-count="1" sharding-item-parameters="" />-->
+
+    <!--数据流任务: streaming-process 参数配置是否开启流式作业-->
+    <!--<job:dataflow registry-center-ref="regCenter" cron="0/10 * * * * ?" sharding-total-count="1" class="com.xjf.demo.job.MyDataFlowJob"
+                  id="demoDataFlowJob" sharding-item-parameters="" description="我的第一个数据流作业" streaming-process="false"/>-->
+
+    <!--脚本作业，路径使用绝对路径-->
+    <job:script registry-center-ref="regCenter" cron="0/10 * * * * ?" sharding-total-count="1" id="demoScriptJob"
+                script-command-line="G:\GitWareHouse\SpringCloud\elastic-job-demo\demo.bat" description="我的第一个脚本作业" />
 </beans>
