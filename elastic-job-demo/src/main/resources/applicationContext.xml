@@ -23,6 +23,11 @@
                   id="demoDataFlowJob" sharding-item-parameters="" description="我的第一个数据流作业" streaming-process="false"/>-->
 
     <!--脚本作业，路径使用绝对路径-->
-    <job:script registry-center-ref="regCenter" cron="0/10 * * * * ?" sharding-total-count="1" id="demoScriptJob"
-                script-command-line="G:\GitWareHouse\SpringCloud\elastic-job-demo\demo.bat" description="我的第一个脚本作业" />
+    <!--<job:script registry-center-ref="regCenter" cron="0/10 * * * * ?" sharding-total-count="1" id="demoScriptJob"
+                script-command-line="G:\GitWareHouse\SpringCloud\elastic-job-demo\demo.sh" description="我的第一个脚本作业" />-->
+
+    <!--分片处理任务: overwirte 参数：需要覆盖注册中心的配置信息。     failover：是否开启失效转移-->
+    <job:simple id="demoShardJob" registry-center-ref="regCenter" cron="0 37 10 * * ? *" sharding-total-count="2"
+                sharding-item-parameters="0=0, 1=1" class="com.xjf.demo.job.MySimpleJob" description="分片任务"
+                overwrite="true" failover="true"/>
 </beans>
