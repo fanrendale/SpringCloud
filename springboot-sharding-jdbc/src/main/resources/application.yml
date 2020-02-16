@@ -1,0 +1,40 @@
+# 数据源配置，实现读写分离
+#spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#  shardingsphere:
+#    datasource:
+#      names:
+#        master,slave
+#      # 主数据源
+#      master:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/ds_0?characterEncoding=utf-8&useSSL=true
+#        username: root
+#        password: 123456
+#      # 从数据源
+#      slave:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/ds_1?characterEncoding=utf-8&useSSL=true
+#        username: root
+#        password: 123456
+#    masterslave:
+#      # 读写分离配置
+#      load-balance-algorithm-type: round_robin
+#      # 最终的数据源名称
+#      name: dataSource
+#      # 主库数据源名称
+#      master-data-source-name: master
+#      # 从库数据源名称列表，多个逗号分隔
+#      slave-data-source-names: slave
+#    props:
+#      # 开启SQL显示，默认false
+#      sql:
+#        show: true
+
+# mybatis-plus 打印日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
