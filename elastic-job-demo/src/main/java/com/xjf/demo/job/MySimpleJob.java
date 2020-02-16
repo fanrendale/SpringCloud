@@ -24,6 +24,9 @@ public class MySimpleJob implements SimpleJob {
         System.err.println("分片参数：" + shardingParameter);
         Integer value = Integer.valueOf(shardingParameter);
 
+        // 异常模拟
+//        int a = 2 / 0;
+
         for (int i = 1; i <= 20; i++) {
             if (i % 2 == value){
                 System.err.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " : 开始执行简单任务 " + i);

@@ -36,7 +36,11 @@
 
     <!--分片处理任务: overwirte 参数：需要覆盖注册中心的配置信息。     failover：是否开启失效转移-->
     <!--event-trace-rdb-data-source : 配置时间追踪使用的数据库-->
-    <job:simple id="demoShardJob" registry-center-ref="regCenter" cron="0 14 11 * * ? *" sharding-total-count="2"
+    <job:simple id="demoShardJob" registry-center-ref="regCenter" cron="0 0/2 * * * ? *" sharding-total-count="2"
                 sharding-item-parameters="0=0, 1=1" class="com.xjf.demo.job.MySimpleJob" description="分片任务"
-                overwrite="true" failover="true" event-trace-rdb-data-source="elasticJobLog"/>
+                overwrite="true" failover="true" event-trace-rdb-data-source="elasticJobLog"
+                job-exception-handler="com.xjf.demo.handler.MyJobExceptionHandler">
+        <!--任务监听器-->
+        <job:listener class="com.xjf.demo.listener.MyJobListener" />
+    </job:simple>
 </beans>

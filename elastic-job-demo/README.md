@@ -5,7 +5,7 @@
 3. 数据流任务：streaming-process 参数配置是否开启流式作业。
 
  **注意：Xml 中配置必须要配置 id**
- 4. 
+ 4. 在线生成 corn 表达式: http://cron.qqe2.com/
  #### 分片任务
  1. sharding-item-parameters 配置分片的参数，该配置的参数在任务中可以进行获取，然后我们自己判断该参数怎么使用。至于执行的机器选择，有 Elastic-Job
     的任务节点分片策略决定（有三种策略）。
@@ -14,4 +14,13 @@
 #### 事件追踪
 1. Elastic-Job提供了事件追踪功能，可通过事件订阅的方式处理调度过程的重要事件，用于查询、统计和监控。
    Elastic-Job目前提供了基于关系型数据库两种事件订阅方式记录事件。
+#### 自定义任务监听器
+1. 自定义监听器实现 ElasticJobListener 接口
+2. 在任务中添加如下配置：
+    ```xml
+    <job:listener class="com.xjf.demo.listener.MyJobListener" />
+    ```
+#### 自定义任务异常处理
+1. 自定义异常处理实现 JobExceptionHandler 接口
+2. 配置 job 的属性 job-exception-handler 
  
