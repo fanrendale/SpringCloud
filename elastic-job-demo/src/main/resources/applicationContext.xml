@@ -26,8 +26,17 @@
     <!--<job:script registry-center-ref="regCenter" cron="0/10 * * * * ?" sharding-total-count="1" id="demoScriptJob"
                 script-command-line="G:\GitWareHouse\SpringCloud\elastic-job-demo\demo.sh" description="我的第一个脚本作业" />-->
 
+    <!--Dbcp 数据库连接池配置-->
+    <bean id="elasticJobLog" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/batch_log?useSSL=true" />
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+    </bean>
+
     <!--分片处理任务: overwirte 参数：需要覆盖注册中心的配置信息。     failover：是否开启失效转移-->
-    <job:simple id="demoShardJob" registry-center-ref="regCenter" cron="0 37 10 * * ? *" sharding-total-count="2"
+    <!--event-trace-rdb-data-source : 配置时间追踪使用的数据库-->
+    <job:simple id="demoShardJob" registry-center-ref="regCenter" cron="0 14 11 * * ? *" sharding-total-count="2"
                 sharding-item-parameters="0=0, 1=1" class="com.xjf.demo.job.MySimpleJob" description="分片任务"
-                overwrite="true" failover="true"/>
+                overwrite="true" failover="true" event-trace-rdb-data-source="elasticJobLog"/>
 </beans>

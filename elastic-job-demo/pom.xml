@@ -47,6 +47,16 @@
             <artifactId>elastic-job-lite-spring</artifactId>
             <version>${latest.release.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.5.0</version>
+        </dependency>
     </dependencies>
 
     <build>
