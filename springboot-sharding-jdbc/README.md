@@ -18,3 +18,8 @@
     ```
 #### 读写分离
 1. 查看俺写的博客: https://blog.csdn.net/fanrendale/article/details/104350362
+2. 强制路由主库：
+    ```java
+    // 强制路由主库。 查询时去主库查询
+    HintManager.getInstance().setMasterRouteOnly();
+    ```

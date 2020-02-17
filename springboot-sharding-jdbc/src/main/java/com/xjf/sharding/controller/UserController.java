@@ -1,6 +1,7 @@
 package com.xjf.sharding.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.dangdang.ddframe.rdb.sharding.api.HintManager;
 import com.xjf.sharding.entity.User;
 import com.xjf.sharding.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UserController {
 
     @GetMapping("/list")
     public List<User> select(){
+
+        // 强制路由主库。 查询时去主库查询
+//        HintManager.getInstance().setMasterRouteOnly();
 
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         List<User> userList = userMapper.selectList(queryWrapper);
