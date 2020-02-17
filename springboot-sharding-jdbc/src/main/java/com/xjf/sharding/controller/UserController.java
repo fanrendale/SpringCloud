@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author xjf
@@ -74,6 +75,32 @@ public class UserController {
         }
 
 
+
+        return "success";
+    }
+
+    /**
+     * 验证分库分表：写入
+     *
+     * @return
+     */
+    @GetMapping("/add3")
+    public String add3(){
+
+        for (int i = 0; i < 100; i++) {
+            User user = new User();
+//            user.setId(Long.valueOf(i));
+            // 随机设置城市
+            int random = new Random().nextInt();
+            if (random % 2 == 0){
+                user.setCity("上海");
+            }else {
+                user.setCity("杭州");
+            }
+            user.setName("嘉文四世");
+
+            userMapper.insert(user);
+        }
 
         return "success";
     }

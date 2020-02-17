@@ -30,3 +30,7 @@
     1. 使用 inline ：algorithm-expression="user_${id.longValue() % 4}"
     2. 自定义分片算法类：com.xjf.sharding.algorithm.MyUserSingleKeyTableShardingAlgorithm
 4. 添加 100 条数据，可以查看 4 个数据库，分别有 25 条数据。
+#### 分库分表
+1. 分库分表，此处实现为按城市存不同的数据库，在数据库中对 id 进行取模来分表。
+2. Sharding-JDBC 默认的分布式主键，是采用 Twitter Snowflake 算法实现的。
+3. 查看俺的博客：https://blog.csdn.net/fanrendale/article/details/104360255
