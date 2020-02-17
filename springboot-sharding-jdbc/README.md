@@ -23,3 +23,10 @@
     // 强制路由主库。 查询时去主库查询
     HintManager.getInstance().setMasterRouteOnly();
     ```
+#### 不分库只分表
+1. 常用分片算法：范围分片、取模分片、Hash 分片、时间分片等。
+2. 此处模拟数据准备，在一个数据库中建 4 张表，结构一样：ds_0, ds_1, ds_2, ds_3
+3. 分片配置在 sharding.xml 中，其中分片算法配置方式有两种（此处是取模分片）：
+    1. 使用 inline ：algorithm-expression="user_${id.longValue() % 4}"
+    2. 自定义分片算法类：com.xjf.sharding.algorithm.MyUserSingleKeyTableShardingAlgorithm
+4. 添加 100 条数据，可以查看 4 个数据库，分别有 25 条数据。

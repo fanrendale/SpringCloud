@@ -10,24 +10,61 @@
                         http://www.dangdang.com/schema/ddframe/rdb
                         http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd
                         ">
+    <!--======================================================读写分离===开始=================================================-->
     <!-- 主数据 -->
-    <bean id="ds_0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" primary="true">
+    <!--<bean id="ds_0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" primary="true">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/ds_0??autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds_0?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false" />
         <property name="username" value="root" />
         <property name="password" value="123456" />
     </bean>
 
-    <!-- 从数据 -->
+    &lt;!&ndash; 从数据 &ndash;&gt;
     <bean id="ds_1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" >
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/ds_1??autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds_1?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false" />
         <property name="username" value="root" />
         <property name="password" value="123456" />
     </bean>
 
-    <!-- 读写分离数据源 -->
-    <rdb:master-slave-data-source id="dataSource" master-data-source-ref="ds_0" slave-data-sources-ref="ds_1" />
+    &lt;!&ndash; 读写分离数据源 &ndash;&gt;
+    <rdb:master-slave-data-source id="dataSource" master-data-source-ref="ds_0" slave-data-sources-ref="ds_1" />-->
+    <!--======================================================读写分离===开始=================================================-->
+
+
+    <!--======================================================不分库只分表===开始=================================================-->
+    <!-- inline 表达式报错解决：在 Spring 的配置文件中，由于 inline 表达式使用了 Groovy 语法， Groovy 语法的变量符与 Spring 默认占位符
+                               同为 ${} ,因此需要在配置文件中增加下面这行来解决解析报错问题-->
+    <context:property-placeholder ignore-unresolvable="true" />
+
+    <!-- 主数据 -->
+    <bean id="ds_2" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" primary="true">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds_2?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false" />
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+    </bean>
+
+    <!-- 分表规则配置: 使用 id 做分片规则，取模算法 -->
+    <!-- 使用 inline 方式-->
+    <!--<rdb:strategy id="userTableStrategy" sharding-columns="id" algorithm-expression="user_${id.longValue() % 4}" />-->
+    <!-- 使用自定义分片算法类 -->
+    <rdb:strategy id="userTableStrategy" sharding-columns="id" algorithm-class="com.xjf.sharding.algorithm.MyUserSingleKeyTableShardingAlgorithm" />
+
+    <!-- 数据源配置 -->
+    <rdb:data-source id="dataSource">
+        <rdb:sharding-rule data-sources="ds_2">
+            <rdb:table-rules>
+                <!-- 逻辑表为 user， 实际表为: user_0, user_1, user_2, user_3,-->
+                <rdb:table-rule logic-table="user" actual-tables="user_${0..3}" table-strategy="userTableStrategy"></rdb:table-rule>
+            </rdb:table-rules>
+            <!--此处没有分库，因此默认使用不分库算法-->
+            <rdb:default-database-strategy sharding-columns="none"
+                                           algorithm-class="com.dangdang.ddframe.rdb.sharding.api.strategy.database.NoneDatabaseShardingAlgorithm" />
+        </rdb:sharding-rule>
+    </rdb:data-source>
+
+    <!--======================================================不分库只分表===结束=================================================-->
 
     <!-- 给 MyBatis-Plus 配置数据源 -->
     <bean id="mybatisSqlSessionFactoryBean" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">

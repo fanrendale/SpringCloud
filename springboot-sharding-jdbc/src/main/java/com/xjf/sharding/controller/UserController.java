@@ -20,6 +20,11 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 验证读写分离的 读
+     *
+     * @return
+     */
     @GetMapping("/list")
     public List<User> select(){
 
@@ -34,6 +39,11 @@ public class UserController {
         return userList;
     }
 
+    /**
+     * 验证读写分离的 写
+     *
+     * @return
+     */
     @GetMapping("/add")
     public boolean add(){
         User user = new User();
@@ -44,5 +54,27 @@ public class UserController {
         int insert = userMapper.insert(user);
 
         return insert > 0;
+    }
+
+    /**
+     * 验证不分库只分表：写入
+     *
+     * @return
+     */
+    @GetMapping("/add2")
+    public String add2(){
+
+        for (int i = 100; i < 200; i++) {
+            User user = new User();
+            user.setId(Long.valueOf(i));
+            user.setCity("德玛西亚");
+            user.setName("盖伦");
+
+            userMapper.insert(user);
+        }
+
+
+
+        return "success";
     }
 }
